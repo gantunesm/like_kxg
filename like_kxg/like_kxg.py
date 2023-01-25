@@ -173,7 +173,7 @@ class like_kxg(Likelihood):
             # z_shif_stch =  sz*(z- z_m) + z_m - dz #ESSA EQ do SPTxDES paper
 
 	        # A n_fid(stretch*(z - zmean) + zmean + deltaz) 
-            msk = (z_shif_stch > 0) & (z_shif_stch < 1.7)
+            msk = (z_shif_stch > 0) 
         
             zz_total = np.sort(z_shif_stch[msk])
             # nz_new = sz*(nzf(zz_total)) #SPT

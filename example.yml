@@ -1,0 +1,311 @@
+params:
+  # Derived
+  sigma8:
+    latex: \sigma_8
+    derived: True
+
+  # Cosmo
+  Omega_c:
+    prior:
+      min: 0.1
+      max: 0.9                                                                                                                                                  
+    latex: \Omega_c
+
+  Omega_b:
+    prior:
+      min: 0.03
+      max: 0.07
+    latex: \Omega_b
+
+  h:
+    prior:
+      min: 0.55
+      max: 0.91
+    latex: h
+
+  n_s:
+    prior:
+      min: 0.87
+      max: 1.07
+    latex: n_s
+    
+  A_sE9:
+    prior:
+      min: 0.5
+      max: 5.0
+    latex: A_s
+
+
+  m_nu: 0.
+
+
+
+  Omega_m:
+    derived: 'lambda Omega_c,Omega_b : (Omega_c+Omega_b)'
+    latex: \Omega_m
+
+  S8:
+    derived: 'lambda sigma8, Omega_m: sigma8*(Omega_m/0.3)**0.5'
+    latex: \sigma_8 (\Omega_\mathrm{m}/0.3)^{0.5}
+  
+  
+
+  #Nuisance: 
+  # Nuisance (should all start with 'input_params_prefix')
+  xcorr_DESgc__0_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b1
+
+  xcorr_DESgc__1_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b2
+
+  xcorr_DESgc__2_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b3
+
+  xcorr_DESgc__3_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b4
+
+  xcorr_DESgc__4_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b5
+
+  xcorr_DESgc__5_b:
+    prior:
+      min: 0.8
+      max: 3.0
+    proposal: 0.05
+    latex: b6
+  
+
+  xcorr_DESgc__0_dz: 
+    prior:
+      dist: norm
+      loc: -0.009
+      scale: 0.007
+    latex: dltz1
+
+  xcorr_DESgc__1_dz:
+    prior:
+      dist: norm
+      loc: -0.035
+      scale: 0.011
+    latex: dltz2
+
+
+  xcorr_DESgc__2_dz:
+    prior:
+      dist: norm
+      loc: -0.005
+      scale: 0.006
+    latex: dltz3
+  
+
+  xcorr_DESgc__3_dz:
+    prior:
+      dist: norm
+      loc: -0.007
+      scale: 0.006
+    latex: dltz4
+
+  xcorr_DESgc__4_dz:
+    prior:
+      dist: norm
+      loc: 0.002
+      scale: 0.007
+    latex: dltz5
+
+
+  xcorr_DESgc__5_dz:
+    prior:
+      dist: norm
+      loc: 0.002
+      scale: 0.008
+    latex: dltz6
+
+
+  xcorr_DESgc__0_mag: 0.642
+
+  xcorr_DESgc__1_mag: 0.63
+
+  xcorr_DESgc__2_mag: 0.776
+
+  xcorr_DESgc__3_mag: 0.794
+
+  xcorr_DESgc__4_mag: 0.756
+
+  xcorr_DESgc__5_mag: 0.896
+
+  xcorr_DESgc__0_sz:
+    prior:
+      dist: norm
+      loc: 0.975
+      scale: 0.062
+    latex: sigz1
+
+  xcorr_DESgc__1_sz:
+    prior:
+      dist: norm
+      loc: 1.306
+      scale: 0.093
+    latex: sigz2
+
+  xcorr_DESgc__2_sz:
+    prior:
+      dist: norm
+      loc: 0.870
+      scale: 0.054
+    latex: sigz3
+
+  xcorr_DESgc__3_sz:
+    prior:
+      dist: norm
+      loc: 0.918
+      scale: 0.051
+    latex: sigz4
+
+  
+  xcorr_DESgc__4_sz:
+    prior:
+      dist: norm
+      loc: 1.08
+      scale: 0.067
+    proposal: 0.005
+    latex: sigz5
+
+  xcorr_DESgc__5_sz:
+    prior:
+      dist: norm
+      loc: 0.845
+      scale: 0.073
+    proposal: 0.005
+    latex: sigz6
+
+
+
+
+
+# CCL settings
+theory:
+  like_kxg.CCL:
+    transfer_function: boltzmann_camb
+    matter_pk: halofit
+    baryons_pk: nobaryons
+    output_params:
+      - sigma8  
+  
+
+# Likelihood settings
+likelihood:
+  like_kxg.like_kxg:
+    # Input cl and cov file
+    magnification: 'True'
+    pzshift: 'True'
+    pzshift_only: 'False'
+    input_file : /home/r/rbond/gmarques/des_maglim/data/gg_kg_realdata.fits
+  
+    
+    tracers: 
+      - DESgc__0
+      - DESgc__1
+      - DESgc__2
+      - DESgc__3
+      - DESgc__4
+      - DESgc__5
+      - Kappacv
+    # List all 2-points that should go into the
+    # data vector
+    tracer_combinations:
+      (DESgc__0, DESgc__0):
+        lmin: 47
+        lmax: 98
+
+      (DESgc__1, DESgc__1):
+        lmin: 47
+        lmax: 145
+
+      (DESgc__2, DESgc__2):
+        lmin: 47
+        lmax: 188
+
+      (DESgc__3, DESgc__3):
+        lmin: 47
+        lmax: 224
+
+      (DESgc__4, DESgc__4):
+        lmin: 47
+        lmax: 249
+
+      (DESgc__5, DESgc__5):
+        lmin: 47
+        lmax: 268
+  
+      # # gc -kappa-cmb
+      (DESgc__0, Kappacv):
+        lmin: 107
+        lmax: 155
+
+      (DESgc__1, Kappacv):
+        lmin: 107
+        lmax: 180
+
+      (DESgc__2, Kappacv):
+        lmin: 107
+        lmax: 188
+
+      (DESgc__3, Kappacv):
+        lmin: 107
+        lmax: 224
+
+      (DESgc__4, Kappacv):
+        lmin: 107
+        lmax: 249
+
+      (DESgc__5, Kappacv):
+        lmin: 107
+        lmax: 268
+
+    defaults:
+      lmin: 107
+      lmax: 1000
+
+      input_params_prefix: xcorr
+
+  
+sampler:
+  mcmc:
+    learn_every: 20d
+    learn_proposal_Rminus1_max_early: 50.
+    learn_proposal_Rminus1_max: 30.
+    Rminus1_stop: 0.05
+    Rminus1_cl_stop: 0.2
+    proposal_scale: 1.9
+    max_tries: 1000000
+
+
+stop_at_error: True
+debug: True
+
+output: '/scratch/r/rbond/gmarques/real_data/realdata_gg_kg_allbins/chains_'
+
+
+  
+
+  
