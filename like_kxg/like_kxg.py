@@ -169,8 +169,8 @@ class like_kxg(Likelihood):
         if (self.pzshift == 'True') and (self.pzshift_only == 'False'):
             sz = pars.get(pars_prefix + '_sz')
             dz = pars.get(pars_prefix +'_dz')
-            z_shif_stch =  sz*(z- z_m - dz) + z_m #ESSA EQque ta no paper do MAGLIM clustering analysis
-            # z_shif_stch =  sz*(z- z_m) + z_m - dz #ESSA EQ do SPTxDES paper
+            z_shif_stch =  sz*(z- z_m - dz) + z_m # MAGLIM clustering analysis
+            # z_shif_stch =  sz*(z- z_m) + z_m - dz #  
 
 	        # A n_fid(stretch*(z - zmean) + zmean + deltaz) 
             msk = (z_shif_stch > 0) 
